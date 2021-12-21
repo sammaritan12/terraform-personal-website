@@ -26,10 +26,6 @@ resource "aws_s3_bucket_policy" "web_statics" {
   policy = data.aws_iam_policy_document.s3_policy.json
 }
 
-resource "aws_cloudfront_origin_access_identity" "this" {
-  comment = "Origin Access Identity for s3://${aws_s3_bucket.web_statics.id}"
-}
-
 resource "aws_cloudfront_distribution" "distribution" {
   enabled             = true
   is_ipv6_enabled     = true
@@ -39,8 +35,11 @@ resource "aws_cloudfront_distribution" "distribution" {
     origin_id   = "origin-bucket-${aws_s3_bucket.web_statics.id}"
     domain_name = aws_s3_bucket.web_statics.website_endpoint
 
-    s3_origin_config {
-      origin_access_identity = aws_cloudfront_origin_access_identity.this.cloudfront_access_identity_path
+    custom_origin_config {
+      http_port              = 80
+      https_port             = 443
+      origin_protocol_policy = "https-only"
+      origin_ssl_protocols   = ["TLSv1", "TLSv1.1", "TLSv1.2"]
     }
   }
 
