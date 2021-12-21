@@ -1,5 +1,5 @@
 resource "aws_route53_zone" "markpatricio_public" {
-  name = "markpatricio.com"
+  name = local.domain_name
 }
 
 resource "aws_route53_record" "cert_validation" {
@@ -17,4 +17,16 @@ resource "aws_route53_record" "cert_validation" {
   zone_id         = aws_route53_zone.markpatricio_public.id
   records         = [each.value.record]
   ttl             = 60
+}
+
+resource "aws_route53_record" "root_domain" {
+  zone_id = aws_route53_zone.markpatricio_public.zone_id
+  name    = local.domain_name
+  type    = "A"
+
+  alias {
+    name                   = module.personal_website.cloudfront_domain_name
+    zone_id                = module.personal_website.cloudfront_hosted_zone_id
+    evaluate_target_health = false
+  }
 }
