@@ -3,6 +3,23 @@ resource "aws_s3_bucket" "web_statics" {
   acl    = "private"
 }
 
+data "aws_iam_policy_document" "s3_policy" {
+  statement {
+    actions   = ["s3:GetObject"]
+    resources = ["${aws_s3_bucket.web_statics.arn}/*"]
+
+    principals {
+      type        = "AWS"
+      identifiers = [aws_cloudfront_origin_access_identity.this.iam_arn]
+    }
+  }
+}
+
+resource "aws_s3_bucket_policy" "web_statics" {
+  bucket = aws_s3_bucket.web_statics.id
+  policy = data.aws_iam_policy_document.s3_policy.json
+}
+
 resource "aws_cloudfront_origin_access_identity" "this" {
   comment = "Origin Access Identity for s3://${aws_s3_bucket.web_statics.id}"
 }
