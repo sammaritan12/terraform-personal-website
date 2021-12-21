@@ -3,7 +3,7 @@ resource "aws_iam_user" "circleci" {
 }
 
 resource "aws_iam_policy" "policy" {
-  name = "circleci_policy"
+  name   = "circleci_policy"
   policy = data.aws_iam_policy_document.policy.json
 }
 
