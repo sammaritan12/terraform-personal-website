@@ -47,4 +47,14 @@ data "aws_iam_policy_document" "policy" {
       "arn:aws:s3:::${var.s3_bucket_name}/*",
     ]
   }
+
+  statement {
+    actions = [
+      "cloudfront:CreateInvalidation",
+    ]
+
+    resources = [
+      var.cloudfront_distribution_arn,
+    ]
+  }
 }
