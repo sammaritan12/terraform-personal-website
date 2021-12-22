@@ -9,3 +9,4 @@ Infrastructure repo for the creation of a personal website.
     * https://sanderknape.com/2020/02/building-a-static-serverless-website-using-s3-cloudfront/
     * Alternatively, add `Referrer` header and restrict bucket to that
     * This makes the website more secure and means no one can access the S3 bucket directly
+    * https://aws.amazon.com/premiumsupport/knowledge-center/cloudfront-serve-static-website/
