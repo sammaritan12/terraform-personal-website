@@ -73,7 +73,8 @@ resource "aws_cloudfront_distribution" "distribution" {
     }
   }
 
-  aliases = [var.domain_name, "www.${var.domain_name}"]
+  # aliases = [var.domain_name, "www.${var.domain_name}"]
+  aliases = [var.domain_name]
 
   viewer_certificate {
     acm_certificate_arn = aws_acm_certificate.static_website_acm_cert.arn
