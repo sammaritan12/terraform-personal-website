@@ -48,5 +48,7 @@ resource "aws_route53_record" "markpatricio_com_www" {
   name    = "www"
   type    = "CNAME"
 
+  ttl = "5"
+
   records = [local.domain_name]
 }
