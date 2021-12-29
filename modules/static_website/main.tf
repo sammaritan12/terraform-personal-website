@@ -90,9 +90,10 @@ resource "aws_cloudfront_distribution" "distribution" {
 }
 
 resource "aws_acm_certificate" "static_website_acm_cert" {
-  provider          = aws.us
-  domain_name       = var.domain_name
-  validation_method = "DNS"
+  provider                  = aws.us
+  domain_name               = var.domain_name
+  subject_alternative_names = ["*.${var.domain_name}"]
+  validation_method         = "DNS"
 }
 
 resource "aws_route53_record" "cert_validation_record" {
