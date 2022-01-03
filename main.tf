@@ -8,3 +8,7 @@ module "personal_website" {
     aws.us = aws.us
   }
 }
+
+module "email_forwarder" {
+  source = "./modules/email_forwarder"
+}
