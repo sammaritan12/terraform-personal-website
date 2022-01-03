@@ -8,3 +8,24 @@ module "personal_website" {
     aws.us = aws.us
   }
 }
+
+module "ses-lambda-forwarder" {
+  source  = "cloudposse/ses-lambda-forwarder/aws"
+  version = "0.11.0"
+
+  namespace = "mp"
+  stage     = "prod"
+  name      = "app"
+  # delimiter  = "-"
+  # attributes = []
+  # tags       = {}
+
+  region = "ap-southeast-2"
+  domain = "markpatricio.com"
+
+  relay_email = "mark@markpatricio.com"
+  forward_emails = {
+    "mark@markpatricio.com" = ["sammaritan12@gmail.com"]
+  }
+}
+
