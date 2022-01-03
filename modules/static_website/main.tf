@@ -86,6 +86,7 @@ resource "aws_cloudfront_distribution" "distribution" {
     response_code      = 200
   }
 
+  depends_on = [aws_acm_certificate_validation.cert_validation]
 }
 
 resource "aws_acm_certificate" "static_website_acm_cert" {
@@ -93,4 +94,9 @@ resource "aws_acm_certificate" "static_website_acm_cert" {
   domain_name               = var.domain_name
   subject_alternative_names = ["*.${var.domain_name}"]
   validation_method         = "DNS"
+}
+
+resource "aws_acm_certificate_validation" "cert_validation" {
+  provider                = aws.us
+  certificate_arn         = aws_acm_certificate.static_website_acm_cert.arn
 }
