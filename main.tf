@@ -1,3 +1,7 @@
+locals {
+  domain_name = "markpatricio.com"
+}
+
 module "personal_website" {
   source          = "./modules/static_website"
   bucket_name     = "markpatricio-personal-web-statics"
