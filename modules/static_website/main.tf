@@ -9,7 +9,7 @@ resource "aws_s3_bucket" "web_statics" {
   }
 
   cors_rule {
-    allowed_method  = ["GET", "HEAD"]
+    allowed_methods = ["GET", "HEAD"]
     allowed_origins = ["https://www.${var.domain_name}"]
   }
 }
