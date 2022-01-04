@@ -7,6 +7,11 @@ resource "aws_s3_bucket" "web_statics" {
     index_document = "index.html"
     error_document = "index.html"
   }
+
+  cors_rule {
+    allowed_method  = ["GET", "HEAD"]
+    allowed_origins = ["https://www.${var.domain_name}"]
+  }
 }
 
 data "aws_iam_policy_document" "s3_policy" {
@@ -97,6 +102,6 @@ resource "aws_acm_certificate" "static_website_acm_cert" {
 }
 
 resource "aws_acm_certificate_validation" "cert_validation" {
-  provider                = aws.us
-  certificate_arn         = aws_acm_certificate.static_website_acm_cert.arn
+  provider        = aws.us
+  certificate_arn = aws_acm_certificate.static_website_acm_cert.arn
 }
