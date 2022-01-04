@@ -7,8 +7,3 @@ variable "domain_name" {
   type        = string
   description = "Domain name to host static website to"
 }
-
-variable "route53_zone_id" {
-  type        = string
-  description = "The route53 zone id"
-}
